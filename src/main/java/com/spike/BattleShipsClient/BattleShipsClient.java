@@ -20,5 +20,21 @@ public class BattleShipsClient {
     	gui.buildGui();
     	con.connect();
     }
+    
+    /*
+	private void fillShipArray() {
+		boolean done = false;
+		for(int i = 0; i < FIELD_SIZE; i++) {
+			for(int j = 0; j < FIELD_SIZE; j++) {
+				if(shipButtonMatrix[i][j].equals(b)) {
+					shipArray[i][j] = 1;
+					done = true;
+				}
+				if(done) {break;}
+			}
+			if(done) {break;}
+		}
+	}
+	*/
 
 }

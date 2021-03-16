@@ -1,7 +1,6 @@
 package com.spike.BattleShipsClient;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 public class Gui {
@@ -11,17 +10,14 @@ public class Gui {
 	private JFrame frame;
 	private JPanel shipButtonPanel;
 	private MyShipsPanel myShipsPanel;
-	private JButton[][] shipButtonMatrix;
-	private int[][] shipArray;
+	private ShipButton[][] shipButtonMatrix;
 	
 	public Gui (int fieldSize) {
 		FIELD_SIZE = fieldSize;
-		
-		shipButtonMatrix = new JButton[FIELD_SIZE][FIELD_SIZE];
-		shipArray = new int[FIELD_SIZE][FIELD_SIZE];
+		shipButtonMatrix = new ShipButton[FIELD_SIZE][FIELD_SIZE];
 	}
 	
-	public JButton[][] getShipButtonMatrix() {
+	public ShipButton[][] getShipButtonMatrix() {
 		return shipButtonMatrix;
 	}
 	
@@ -70,12 +66,12 @@ public class Gui {
 	
 	private void fillShipsPanel() {
 		
-		ShipButtonListener bL = new ShipButtonListener();
+		ShipButtonListener sbL = new ShipButtonListener();
 		
 		for(int i = 0; i < FIELD_SIZE; i++) {
 			for(int j = 0; j < FIELD_SIZE; j++) {
-				JButton b = new JButton(new SeaIcon());
-				b.addActionListener(bL);
+				ShipButton b = new ShipButton(new SeaIcon());
+				b.addActionListener(sbL);
 				shipButtonMatrix[i][j] = b;
 				shipButtonPanel.add(b);
 			}
@@ -112,43 +108,13 @@ public class Gui {
             
             for(int i = 0; i < FIELD_SIZE; i++) {
             	for(int j = 0; j < FIELD_SIZE; j++) {
-            		if(shipArray[i][j] == 1) {
+            		if(shipButtonMatrix[i][j].isShip()) {
             			g.fillRect((this.getWidth() - panelSize) / 2 + j * shipWidth, 
             					(this.getHeight() - panelSize) / 2 + i * shipHeight, shipWidth, shipHeight);
             		}
             	}
             }
 		}
-	}
-
-	private class ShipButtonListener implements ActionListener {
-		
-		private ShipIcon s = new ShipIcon();
-		private JButton b; 
-
-		public void actionPerformed(ActionEvent ev) {
-
-			b = (JButton) ev.getSource();
-			b.setEnabled(false);
-			b.setIcon(s);
-			fillShipArray();
-
-		}
-		
-		private void fillShipArray() {
-			boolean done = false;
-			for(int i = 0; i < FIELD_SIZE; i++) {
-				for(int j = 0; j < FIELD_SIZE; j++) {
-					if(shipButtonMatrix[i][j].equals(b)) {
-						shipArray[i][j] = 1;
-						done = true;
-					}
-					if(done) {break;}
-				}
-				if(done) {break;}
-			}
-		}
-		
 	}
 
 }

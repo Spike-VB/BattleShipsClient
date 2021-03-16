@@ -5,10 +5,11 @@ import javax.swing.*;
 
 public class StartButtonListener implements ActionListener {
 	
-	int FIELD_SIZE;
-	Gui gui;
-	Connection con;
-	JButton[][] shipButtonMatrix;
+	private int FIELD_SIZE;
+	private Gui gui;
+	private Connection con;
+	private JButton[][] shipButtonMatrix;
+	private SeaIcon seI = new SeaIcon();
 	
 	public StartButtonListener(Gui g, Connection c) {
 		gui = g;
@@ -23,7 +24,7 @@ public class StartButtonListener implements ActionListener {
 			for(int j = 0; j < FIELD_SIZE; j++) {
 				JButton b = shipButtonMatrix[i][j];
 				b.setEnabled(true);
-				b.setIcon(new SeaIcon());
+				b.setIcon(seI);
 			}
 		}
 		
