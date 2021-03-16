@@ -3,7 +3,6 @@ package com.spike.BattleShipsClient;
 public class BattleShipsClient {
 	
 	private final int FIELD_SIZE = 10;
-	private int[][] shipArray;
 	
     public static void main( String[] args ) {
     	BattleShipsClient bsc = new BattleShipsClient();

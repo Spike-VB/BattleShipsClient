@@ -1,6 +1,7 @@
 package com.spike.BattleShipsClient;
 
 import java.awt.*;
+import java.util.*;
 import javax.swing.*;
 
 public class Gui {
@@ -10,15 +11,14 @@ public class Gui {
 	private JFrame frame;
 	private JPanel shipButtonPanel;
 	private MyShipsPanel myShipsPanel;
-	private ShipButton[][] shipButtonMatrix;
+	private ArrayList<ShipButton> shipButtons = new ArrayList<ShipButton>();
 	
 	public Gui (int fieldSize) {
 		FIELD_SIZE = fieldSize;
-		shipButtonMatrix = new ShipButton[FIELD_SIZE][FIELD_SIZE];
 	}
 	
-	public ShipButton[][] getShipButtonMatrix() {
-		return shipButtonMatrix;
+	public ArrayList<ShipButton> getShipButtons() {
+		return shipButtons;
 	}
 	
 	public int getFieldSize() {
@@ -70,9 +70,11 @@ public class Gui {
 		
 		for(int i = 0; i < FIELD_SIZE; i++) {
 			for(int j = 0; j < FIELD_SIZE; j++) {
-				ShipButton b = new ShipButton(new SeaIcon());
+				ShipButton b = new ShipButton();
+				b.setSeaIcon();
+				b.setPosition(i, j);
 				b.addActionListener(sbL);
-				shipButtonMatrix[i][j] = b;
+				shipButtons.add(b);
 				shipButtonPanel.add(b);
 			}
 		}
@@ -105,13 +107,11 @@ public class Gui {
             g.fillRect((this.getWidth() - panelSize) / 2, (this.getHeight() - panelSize) / 2, panelSize, panelSize);
             
             g.setColor(Color.gray);
-            
-            for(int i = 0; i < FIELD_SIZE; i++) {
-            	for(int j = 0; j < FIELD_SIZE; j++) {
-            		if(shipButtonMatrix[i][j].isShip()) {
-            			g.fillRect((this.getWidth() - panelSize) / 2 + j * shipWidth, 
-            					(this.getHeight() - panelSize) / 2 + i * shipHeight, shipWidth, shipHeight);
-            		}
+                       
+            for(ShipButton b : shipButtons) {
+            	if(b.isShip()) {
+            		g.fillRect((this.getWidth() - panelSize) / 2 + b.getPosition()[1] * shipWidth, 
+        					(this.getHeight() - panelSize) / 2 + b.getPosition()[0] * shipHeight, shipWidth, shipHeight);
             	}
             }
 		}

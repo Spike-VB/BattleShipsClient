@@ -28,4 +28,15 @@ public class Connection {
 		}
 	}
 	
+	public void sendFire(int[] position) {
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
+			oos.writeObject(position);
+			oos.close();
+		}
+		catch(IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 }
