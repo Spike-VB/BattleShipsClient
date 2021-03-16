@@ -12,15 +12,13 @@ public class BattleShipsClient {
     
     private void gameStart() {
     	Gui gui = new Gui(FIELD_SIZE);
-    	gui.buildGui();
-    	shipArray = gui.getShipArray();
+    	Connection con = new Connection();
     	
-    	for(int i = 0; i < FIELD_SIZE; i++) {
-			for(int j = 0; j < FIELD_SIZE; j++) {
-				System.out.print(shipArray[i][j] + " ");
-			}
-			System.out.println("");
-		}
+    	StartButtonListener sbListener = new StartButtonListener(gui, con);
+    	gui.setStartButtonListener(sbListener);
+    	
+    	gui.buildGui();
+    	con.connect();
     }
 
 }
