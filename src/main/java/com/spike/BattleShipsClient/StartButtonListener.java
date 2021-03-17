@@ -20,33 +20,29 @@ public class StartButtonListener implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent ev) {
-		
+
 		JButton startButton = (JButton) ev.getSource();
 		startButton.setEnabled(false);
 		
-		setSeaIcons();
-		gui.repaint();
 		sendShips();
+		gui.repaint();
 		setFireButtons();
 	}
-	
-	private void setSeaIcons() {
-		for(ShipButton b : shipButtons) {
-			b.setSeaIcon();
-		}
-	}
+
 	
 	private void sendShips() {
 		
-		int[][] shipMatrix = new int[FIELD_SIZE][FIELD_SIZE];
+		int[][] shipsMatrix = new int[FIELD_SIZE][FIELD_SIZE];
 		
 		for(ShipButton b : shipButtons) {
 			if(b.isShip()) {
-				shipMatrix[b.getPosition()[0]][b.getPosition()[1]] = 1;
+				shipsMatrix[b.getPosition()[0]][b.getPosition()[1]] = 1;
 			}
 		}
 		
-		con.sendShips(shipMatrix);
+		Ship[] ships = new ShipsFactory().buildShips(shipsMatrix);
+		
+		con.sendShips(shipsMatrix);
 	}
 	
 	private void setFireButtons() {
@@ -54,6 +50,7 @@ public class StartButtonListener implements ActionListener {
 		FireButtonListener fbl = new FireButtonListener(con);
 		
 		for(ShipButton b : shipButtons) {
+			b.setSeaIcon();
 			b.removeActionListener(b.getActionListeners()[0]);
 			b.addActionListener(fbl);
 		}

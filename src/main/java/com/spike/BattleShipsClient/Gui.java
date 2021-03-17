@@ -112,6 +112,7 @@ public class Gui {
             	if(b.isShip()) {
             		g.fillRect((this.getWidth() - panelSize) / 2 + b.getPosition()[1] * shipWidth, 
         					(this.getHeight() - panelSize) / 2 + b.getPosition()[0] * shipHeight, shipWidth, shipHeight);
+            		b.setShip(false);
             	}
             }
 		}
