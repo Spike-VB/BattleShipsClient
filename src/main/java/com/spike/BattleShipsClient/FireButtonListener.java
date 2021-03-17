@@ -15,8 +15,9 @@ public class FireButtonListener implements ActionListener{
 		
 		b = (ShipButton) ev.getSource();
 		con.sendFire(b.getPosition());
-		System.out.println(b.getPosition()[0] + " " + b.getPosition()[1]);
 		
+		b.setEnabled(false);
+		b.setEmptyIcon();
 	}
 
 }

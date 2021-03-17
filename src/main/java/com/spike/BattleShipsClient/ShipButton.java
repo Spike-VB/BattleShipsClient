@@ -9,6 +9,7 @@ public class ShipButton extends JButton {
 	private int[] position = new int[2];
 	
 	private SeaIcon seI = new SeaIcon();
+	private EmptyIcon emI = new EmptyIcon();
 	private ShipIcon shI = new ShipIcon();
 	private FireIcon fiI = new FireIcon();
 	
@@ -39,6 +40,10 @@ public class ShipButton extends JButton {
 	
 	public void setFireIcon() {
 		this.setIcon(fiI);
+	}
+	
+	public void setEmptyIcon() {
+		this.setIcon(emI);
 	}
 	
 }
