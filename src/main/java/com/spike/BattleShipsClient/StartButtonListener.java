@@ -42,7 +42,7 @@ public class StartButtonListener implements ActionListener {
 		
 		Ship[] ships = new ShipsFactory().buildShips(shipsMatrix);
 		
-		con.sendShips(shipsMatrix);
+		con.sendShips(ships);
 	}
 	
 	private void setFireButtons() {

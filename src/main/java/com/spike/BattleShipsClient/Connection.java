@@ -19,7 +19,7 @@ public class Connection {
 		}
 	}
 	
-	public void sendShips(int[][] ships) {
+	public void sendShips(Ship[] ships) {
 		try {
 			//ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
 			oos.writeObject(ships);
