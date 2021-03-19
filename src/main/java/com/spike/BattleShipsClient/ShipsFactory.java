@@ -1,9 +1,18 @@
 package com.spike.BattleShipsClient;
 
+import com.spike.BattleShipsLib.*;
+
 public class ShipsFactory {
 	
-	Ship[] ships = new Ship[10];
-	int numOfShips = 0;
+	private Ship[] ships;
+	
+	public ShipsFactory(int i) {
+		ships = new Ship[i];
+	}
+	
+	public void setNumOfShips(int i) {
+		ships = new Ship[i];
+	}
 	
 	public Ship[] buildShips(int[][] shipsMatrix) {
 		
@@ -15,14 +24,16 @@ public class ShipsFactory {
 			}
 		}
 		
+		int shipsBuilded = 0;
+		
 		for(int i = 0; i < extMatrix.length - 1; i++) {
 			for(int j = 0; j < extMatrix[i].length - 1; j++) {
 				
 				if(extMatrix[i][j] == 1) {
 					extMatrix[i][j] = 2;
 					Ship s = new Ship();
-					ships[numOfShips] = s;
-					numOfShips++;
+					ships[shipsBuilded] = s;
+					shipsBuilded++;
 					s.buildShip(i, j);
 					
 					int k = 1;
@@ -48,6 +59,5 @@ public class ShipsFactory {
 
 		return ships;
 	}
-
 
 }

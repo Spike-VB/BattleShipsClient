@@ -2,17 +2,18 @@ package com.spike.BattleShipsClient;
 
 import java.net.*;
 import java.io.*;
+import com.spike.BattleShipsLib.*;
 
 public class Connection {
 	
 	Socket sock;
-	ObjectOutputStream oos;
+	//ObjectOutputStream oos;
 	
 	public void connect() {
 		try {
 			sock = new Socket("127.0.0.1", 5050);
 			System.out.println("Connection to server is done");
-			oos = new ObjectOutputStream(sock.getOutputStream());
+			//oos = new ObjectOutputStream(sock.getOutputStream());
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
@@ -21,7 +22,7 @@ public class Connection {
 	
 	public void sendShips(Ship[] ships) {
 		try {
-			//ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
+			ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
 			oos.writeObject(ships);
 			//oos.close();
 		}
@@ -32,7 +33,7 @@ public class Connection {
 	
 	public void sendFire(int[] position) {
 		try {
-			//ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
+			ObjectOutputStream oos = new ObjectOutputStream(sock.getOutputStream());
 			oos.writeObject(position);
 			//oos.close();
 		}

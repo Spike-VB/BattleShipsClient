@@ -2,12 +2,13 @@ package com.spike.BattleShipsClient;
 
 import java.awt.event.*;
 import java.util.ArrayList;
-
 import javax.swing.*;
+import com.spike.BattleShipsLib.*;
 
 public class StartButtonListener implements ActionListener {
 	
 	private int FIELD_SIZE;
+	private final int SHIPS_NUM = 3; 
 	private Gui gui;
 	private Connection con;
 	private ArrayList<ShipButton> shipButtons = new ArrayList<ShipButton>();
@@ -28,7 +29,6 @@ public class StartButtonListener implements ActionListener {
 		gui.repaint();
 		setFireButtons();
 	}
-
 	
 	private void sendShips() {
 		
@@ -40,7 +40,7 @@ public class StartButtonListener implements ActionListener {
 			}
 		}
 		
-		Ship[] ships = new ShipsFactory().buildShips(shipsMatrix);
+		Ship[] ships = new ShipsFactory(SHIPS_NUM).buildShips(shipsMatrix);
 		
 		con.sendShips(ships);
 	}
