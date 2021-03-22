@@ -8,12 +8,14 @@ public class Connection {
 	
 	private Socket sock;
 	private ObjectOutputStream oos;
+	private ObjectInputStream ois; 
 	
 	public void connect() {
 		try {
 			sock = new Socket("127.0.0.1", 5050);
 			System.out.println("Connection to server is done");
 			oos = new ObjectOutputStream(sock.getOutputStream());
+			ois = new ObjectInputStream(sock.getInputStream());
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
@@ -36,6 +38,17 @@ public class Connection {
 		catch(IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public FireResponse getFireResponse() {
+		FireResponse f = new FireResponse();
+		try {
+			f = (FireResponse) ois.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(f.isHit());
+		return f;
 	}
 	
 }

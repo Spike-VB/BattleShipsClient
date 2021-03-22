@@ -2,6 +2,8 @@ package com.spike.BattleShipsClient;
 
 import java.awt.event.*;
 
+import com.spike.BattleShipsLib.*;
+
 public class FireButtonListener implements ActionListener{
 	
 	private ShipButton b;
@@ -16,10 +18,17 @@ public class FireButtonListener implements ActionListener{
 	public void actionPerformed(ActionEvent ev) {
 		
 		b = (ShipButton) ev.getSource();
-		con.sendFire(b.getPosition());
 		b.setBlock(true);
 		b.setEmptyIcon();
+		System.out.println("Empty");
+		b.repaint();
 		gui.blockShipButtons();
+		gui.repaint();
+		con.sendFire(b.getPosition());
+		
+		con.getFireResponse();
+
+			
 	}
 
 }
