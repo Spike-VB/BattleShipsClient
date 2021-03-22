@@ -33,13 +33,21 @@ public class StartButtonListener implements ActionListener {
 	private void sendShips() {
 		
 		int[][] shipsMatrix = new int[FIELD_SIZE][FIELD_SIZE];
+		int[] fieldArray = new int[FIELD_SIZE * FIELD_SIZE];
 		
+		int i = 0;
 		for(ShipButton b : shipButtons) {
 			if(b.isShip()) {
 				shipsMatrix[b.getPosition()[0]][b.getPosition()[1]] = 1;
+				fieldArray[i] = 1;
 			}
+			else {
+				fieldArray[i] = 0;
+			}
+			i++;
 		}
 		
+		gui.setField(fieldArray);
 		Ship[] ships = new ShipsFactory(SHIPS_NUM).buildShips(shipsMatrix);
 		
 		con.sendShips(ships);
@@ -47,12 +55,13 @@ public class StartButtonListener implements ActionListener {
 	
 	private void setFireButtons() {
 		
-		FireButtonListener fbl = new FireButtonListener(con);
+		FireButtonListener fbl = new FireButtonListener(gui, con);
 		
 		for(ShipButton b : shipButtons) {
 			b.setSeaIcon();
 			b.removeActionListener(b.getActionListeners()[0]);
 			b.addActionListener(fbl);
+			b.setShip(false);
 		}
 		
 	}

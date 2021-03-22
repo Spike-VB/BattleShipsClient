@@ -12,6 +12,7 @@ public class Gui {
 	private JPanel shipButtonPanel;
 	private MyShipsPanel myShipsPanel;
 	private ArrayList<ShipButton> shipButtons = new ArrayList<ShipButton>();
+	private int[] fieldArray = new int[FIELD_SIZE * FIELD_SIZE];
 	
 	public Gui (int fieldSize) {
 		FIELD_SIZE = fieldSize;
@@ -27,6 +28,24 @@ public class Gui {
 	
 	public void setStartButtonListener(StartButtonListener sbl) {
 		sbListener = sbl;
+	}
+	
+	public void setField(int[] f) {
+		fieldArray = f;
+	}
+	
+	public void blockShipButtons() {
+		for(ShipButton s : shipButtons) {
+			s.setEnabled(false);
+		}
+	}
+	
+	public void unblockShipButtons() {
+		for(ShipButton s : shipButtons) {
+			if(!s.isBlocked()) {
+				s.setEnabled(true);
+			}
+		}
 	}
 	
 	public void repaint() {
@@ -107,12 +126,11 @@ public class Gui {
             g.fillRect((this.getWidth() - panelSize) / 2, (this.getHeight() - panelSize) / 2, panelSize, panelSize);
             
             g.setColor(Color.gray);
-                       
-            for(ShipButton b : shipButtons) {
-            	if(b.isShip()) {
-            		g.fillRect((this.getWidth() - panelSize) / 2 + b.getPosition()[1] * shipWidth, 
-        					(this.getHeight() - panelSize) / 2 + b.getPosition()[0] * shipHeight, shipWidth, shipHeight);
-            		b.setShip(false);
+
+            for(int i = 0; i < fieldArray.length; i++) {
+            	if(fieldArray[i] == 1) {
+            		g.fillRect((this.getWidth() - panelSize) / 2 + i % FIELD_SIZE * shipWidth, 
+        					(this.getHeight() - panelSize) / 2 + i / FIELD_SIZE * shipHeight, shipWidth, shipHeight);
             	}
             }
 		}

@@ -7,6 +7,7 @@ public class ShipButton extends JButton {
 	private static final long serialVersionUID = 1L;
 	private boolean ship = false;
 	private int[] position = new int[2];
+	private boolean block = false;
 	
 	private SeaIcon seI = new SeaIcon();
 	private EmptyIcon emI = new EmptyIcon();
@@ -28,6 +29,14 @@ public class ShipButton extends JButton {
 	
 	public int[] getPosition() {
 		return position;
+	}
+	
+	public boolean isBlocked() {
+		return block;
+	}
+	
+	public void setBlock(boolean b) {
+		block = b;
 	}
 	
 	public void setSeaIcon() {
