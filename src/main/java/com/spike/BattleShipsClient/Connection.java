@@ -42,12 +42,15 @@ public class Connection {
 	
 	public FireResponse getFireResponse() {
 		FireResponse f = new FireResponse();
+
 		try {
 			f = (FireResponse) ois.readObject();
 		} catch (ClassNotFoundException | IOException e) {
+		//} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(f.isHit());
+		//System.out.println(f.isHit());
+
 		return f;
 	}
 	

@@ -1,5 +1,7 @@
 package com.spike.BattleShipsClient;
 
+import javax.swing.SwingUtilities;
+
 public class BattleShipsClient {
 	
 	private final int FIELD_SIZE = 10;
@@ -16,7 +18,7 @@ public class BattleShipsClient {
     	StartButtonListener sbListener = new StartButtonListener(gui, con);
     	gui.setStartButtonListener(sbListener);
     	
-    	gui.buildGui();
+    	SwingUtilities.invokeLater(gui);
     	con.connect();
     }
 

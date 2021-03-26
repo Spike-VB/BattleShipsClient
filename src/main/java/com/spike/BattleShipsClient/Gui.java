@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Gui {
+public class Gui implements Runnable {
 	
 	private int FIELD_SIZE;
 	private StartButtonListener sbListener;
@@ -51,6 +51,10 @@ public class Gui {
 	public void repaint() {
 		myShipsPanel.repaint();
 		frame.revalidate();
+	}
+	
+	public void run() {
+		buildGui();
 	}
 	
 	public void buildGui() {
