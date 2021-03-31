@@ -11,11 +11,15 @@ public class Gui implements Runnable {
 	private JFrame frame;
 	private JPanel shipButtonPanel;
 	private MyShipsPanel myShipsPanel;
-	private ArrayList<ShipButton> shipButtons = new ArrayList<ShipButton>();
-	private int[] fieldArray = new int[FIELD_SIZE * FIELD_SIZE];
+	private ArrayList<ShipButton> shipButtons;
+	private int[] fieldArray;
+	private int[] fireArray;
 	
 	public Gui (int fieldSize) {
 		FIELD_SIZE = fieldSize;
+		shipButtons = new ArrayList<ShipButton>();
+		fieldArray = new int[FIELD_SIZE * FIELD_SIZE];
+		fireArray = new int[FIELD_SIZE * FIELD_SIZE];
 	}
 	
 	public ArrayList<ShipButton> getShipButtons() {
@@ -32,6 +36,10 @@ public class Gui implements Runnable {
 	
 	public void setField(int[] f) {
 		fieldArray = f;
+	}
+	
+	public void updateFireArray(int[] f) {
+		fireArray[f[0] * FIELD_SIZE + f[1]] = 1;
 	}
 	
 	public void blockShipButtons() {
@@ -110,13 +118,13 @@ public class Gui implements Runnable {
 		
 		private int shipWidth;
 		private int shipHeight;
-		
+			
 		public void paintComponent(Graphics g) {
 			
 			g.setColor(this.getBackground());
             g.fillRect(0, 0, this.getWidth(), this.getHeight());
             
-            g.setColor(Color.white);
+            g.setColor(Color.blue);
             
             int panelSize = this.getHeight() / FIELD_SIZE * FIELD_SIZE;
             
@@ -128,15 +136,24 @@ public class Gui implements Runnable {
 			shipHeight = panelSize / FIELD_SIZE;
             
             g.fillRect((this.getWidth() - panelSize) / 2, (this.getHeight() - panelSize) / 2, panelSize, panelSize);
-            
-            g.setColor(Color.gray);
 
             for(int i = 0; i < fieldArray.length; i++) {
-            	if(fieldArray[i] == 1) {
-            		g.fillRect((this.getWidth() - panelSize) / 2 + i % FIELD_SIZE * shipWidth, 
-        					(this.getHeight() - panelSize) / 2 + i / FIELD_SIZE * shipHeight, shipWidth, shipHeight);
+            	if(fieldArray[i] == 1 && fireArray[i] == 0) {
+            		paintCell(g, Color.gray, panelSize, i);
+            	}
+            	else if(fieldArray[i] == 1 && fireArray[i] == 1) {
+            		paintCell(g, Color.red, panelSize, i);
+            	}
+            	else if(fieldArray[i] == 0 && fireArray[i] == 1) {
+            		paintCell(g, Color.cyan, panelSize, i);
             	}
             }
+		}
+		
+		private void paintCell(Graphics g, Color c, int panelSize, int position) {
+			g.setColor(c);
+			g.fillRect((this.getWidth() - panelSize) / 2 + position % FIELD_SIZE * shipWidth, 
+					(this.getHeight() - panelSize) / 2 + position / FIELD_SIZE * shipHeight, shipWidth, shipHeight);
 		}
 	}
 
