@@ -42,7 +42,7 @@ public class Connection {
 	
 	public FireResponse getFireResponse() {
 		
-		FireResponse f = new FireResponse();
+		FireResponse f = new HitResponse();
 		
 		try {
 			f = (FireResponse) ois.readObject();

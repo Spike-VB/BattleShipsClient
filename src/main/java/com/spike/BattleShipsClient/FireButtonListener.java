@@ -33,33 +33,27 @@ public class FireButtonListener implements ActionListener{
 			}
 			
 			public void done() {
-				FireResponse f = new FireResponse();
-				try {
-					f = get();
-					/*
-					if(f.getTurn() && f.isHit()) {
-						b.setFireIcon();
-					}
-					else {
-						b.setEmptyIcon();
-					}
-					gui.updateFireArray(f.getPosition());
-					gui.unblockShipButtons();
-					*/
-					if(f.getTurn()) {
+					try {
+					FireResponse f = get();
+
+					if(f instanceof HitResponse) {
+						HitResponse h = (HitResponse) f;
 						
-						gui.unblockShipButtons();
-						
-						if(f.isHit()) {
+						if(h.isHit()) {
+							gui.unblockShipButtons();
 							b.setFireIcon();
 						}
 						else {
 							b.setEmptyIcon();
-							gui.updateFireArray(f.getPosition());
 						}
 					}
 					else {
-						gui.updateFireArray(f.getPosition());
+						WaitingResponse w = (WaitingResponse) f;
+						gui.updateFireArray(w.getPosition());
+						
+						if(!w.isHit()) {
+							gui.unblockShipButtons();
+						}
 					}
 					
 					gui.repaint();
