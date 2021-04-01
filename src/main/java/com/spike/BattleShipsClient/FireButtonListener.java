@@ -21,7 +21,7 @@ public class FireButtonListener implements ActionListener{
 		
 		b = (ShipButton) ev.getSource();
 		b.setBlock(true);
-		b.setEmptyIcon();
+		b.setWaitingIcon();
 		gui.blockShipButtons();
 		con.sendFire(b.getPosition());
 		
@@ -36,12 +36,34 @@ public class FireButtonListener implements ActionListener{
 				FireResponse f = new FireResponse();
 				try {
 					f = get();
-					if(f.isHit()) {
+					/*
+					if(f.getTurn() && f.isHit()) {
 						b.setFireIcon();
+					}
+					else {
+						b.setEmptyIcon();
 					}
 					gui.updateFireArray(f.getPosition());
 					gui.unblockShipButtons();
+					*/
+					if(f.getTurn()) {
+						
+						gui.unblockShipButtons();
+						
+						if(f.isHit()) {
+							b.setFireIcon();
+						}
+						else {
+							b.setEmptyIcon();
+							gui.updateFireArray(f.getPosition());
+						}
+					}
+					else {
+						gui.updateFireArray(f.getPosition());
+					}
+					
 					gui.repaint();
+					
 				} catch (InterruptedException | ExecutionException e) {
 					e.printStackTrace();
 				}

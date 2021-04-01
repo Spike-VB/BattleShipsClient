@@ -13,6 +13,7 @@ public class ShipButton extends JButton {
 	private EmptyIcon emI = new EmptyIcon();
 	private ShipIcon shI = new ShipIcon();
 	private FireIcon fiI = new FireIcon();
+	private WaitingIcon wI = new WaitingIcon();
 	
 	public boolean isShip() {
 		return ship;
@@ -53,6 +54,10 @@ public class ShipButton extends JButton {
 	
 	public void setEmptyIcon() {
 		this.setIcon(emI);
+	}
+	
+	public void setWaitingIcon() {
+		this.setIcon(wI);
 	}
 	
 }
