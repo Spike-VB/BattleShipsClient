@@ -25,6 +25,11 @@ public class FireButtonListener implements ActionListener{
 		gui.blockShipButtons();
 		con.sendFire(b.getPosition());
 		
+		FireResponseReader frr = new FireResponseReader(gui, con, b);
+		frr.execute();
+		
+		/*
+		
 		SwingWorker<FireResponse, Void> worker = new SwingWorker<FireResponse, Void>() {
 
 			@Override
@@ -65,6 +70,8 @@ public class FireButtonListener implements ActionListener{
 		};
 		
 		worker.execute();
+		*/
+
 	}
 
 }
