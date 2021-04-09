@@ -12,6 +12,7 @@ public class Gui implements Runnable {
 	private JPanel shipButtonPanel;
 	private MyShipsPanel myShipsPanel;
 	private ArrayList<ShipButton> shipButtons;
+	private JButton startButton;
 	private int[] fieldArray;
 	private int[] fireArray;
 	
@@ -24,6 +25,10 @@ public class Gui implements Runnable {
 	
 	public ArrayList<ShipButton> getShipButtons() {
 		return shipButtons;
+	}
+	
+	public JButton getStartButton() {
+		return startButton;
 	}
 	
 	public int getFieldSize() {
@@ -86,7 +91,7 @@ public class Gui implements Runnable {
     	
     	mainPanel.add(BorderLayout.CENTER, centerPanel);
     	
-    	JButton startButton = new JButton("Start");
+    	startButton = new JButton("Start");
     	startButton.addActionListener(sbListener);
     	mainPanel.add(BorderLayout.SOUTH, startButton);
     	

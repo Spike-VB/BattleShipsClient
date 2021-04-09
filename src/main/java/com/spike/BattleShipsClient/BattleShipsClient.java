@@ -8,10 +8,10 @@ public class BattleShipsClient {
 	
     public static void main( String[] args ) {
     	BattleShipsClient bsc = new BattleShipsClient();
-        bsc.gameStart();
+        bsc.startClient();
     }
     
-    private void gameStart() {
+    private void startClient() {
     	Gui gui = new Gui(FIELD_SIZE);
     	Connection con = new Connection();
     	
