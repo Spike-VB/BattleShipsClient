@@ -15,12 +15,24 @@ public class Gui implements Runnable {
 	private JButton startButton;
 	private int[] fieldArray;
 	private int[] fireArray;
+	private boolean firstShot;
 	
 	public Gui (int fieldSize) {
 		FIELD_SIZE = fieldSize;
+		firstShot = true;
 		shipButtons = new ArrayList<ShipButton>();
 		fieldArray = new int[FIELD_SIZE * FIELD_SIZE];
 		fireArray = new int[FIELD_SIZE * FIELD_SIZE];
+	}
+	
+	public boolean getFirsShot() {
+		return firstShot;
+	}
+	
+	public void updateFirsShot() {
+		if(firstShot) {
+			firstShot = false;
+		}
 	}
 	
 	public ArrayList<ShipButton> getShipButtons() {

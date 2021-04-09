@@ -30,6 +30,7 @@ public class FireResponseReader extends SwingWorker<FireResponse, Void> {
 
 			if(f instanceof HitResponse) {
 				HitResponse h = (HitResponse) f;
+				gui.updateFirsShot();
 				
 				if(h.isHit()) {
 					gui.unblockShipButtons();
@@ -43,7 +44,10 @@ public class FireResponseReader extends SwingWorker<FireResponse, Void> {
 				WaitingResponse w = (WaitingResponse) f;
 				gui.updateFireArray(w.getPosition());
 				
-				if(w.isHit()) {
+				if(w.isHit() || gui.getFirsShot()) {
+					if(!w.isHit()) {
+						gui.updateFirsShot();
+					}
 					FireResponseReader frr = new FireResponseReader(gui, con, b);
 					frr.execute();
 				}

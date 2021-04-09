@@ -26,6 +26,7 @@ public class GuiTest extends TestCase {
     	f = f.thenReturn(new WaitingResponse(true, pos[2]));
     	f = f.thenReturn(new WaitingResponse(false, pos[3]));
     	f = f.thenReturn(new HitResponse(true, false));
+    	f = f.thenReturn(new HitResponse(false, false));
     	
     	StartButtonListener sbListener = new StartButtonListener(gui, con);
     	gui.setStartButtonListener(sbListener);
@@ -53,22 +54,33 @@ public class GuiTest extends TestCase {
     	}
     	catch(InterruptedException ex) {
     		ex.printStackTrace();
-    	}
+    	}  
     	
-    	shipButtons.get(shipButtons.size() - 2).doClick();
-    	
+    	shipButtons.get(shipButtons.size() - 3).doClick();
+    	    	
+    	int testTime = 0;
     	while(true) {
-    		if(shipButtons.get(shipButtons.size() - 2).getIcon() instanceof FireIcon) {
+    		if(shipButtons.get(shipButtons.size() - 1).getIcon() instanceof FireIcon &&
+    				shipButtons.get(shipButtons.size() - 3).getIcon() instanceof EmptyIcon) {
     			break;
     		}
 	    	try {
-	    		Thread.sleep(500);
+	    		Thread.sleep(100);
 	    	}
 	    	catch(InterruptedException ex) {
 	    		ex.printStackTrace();
-	    	}   	
+	    	}
+	    	testTime++;
+	    	if(testTime > 50) {
+	    		fail();
+	    	}
     	}
-
+    	
+    	try {
+    		Thread.sleep(1000);
+    	}
+    	catch(InterruptedException ex) {
+    		ex.printStackTrace();
+    	}
 	}
-
 }
