@@ -12,7 +12,8 @@ public class Connection {
 	
 	public void connect() {
 		try {
-			sock = new Socket("127.0.0.1", 5050);
+			//sock = new Socket("127.0.0.1", 5050);
+			sock = new Socket("192.168.0.83", 5050);
 			System.out.println("Connection to server is done");
 			oos = new ObjectOutputStream(sock.getOutputStream());
 			ois = new ObjectInputStream(sock.getInputStream());

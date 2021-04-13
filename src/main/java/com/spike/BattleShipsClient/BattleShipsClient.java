@@ -16,6 +16,7 @@ public class BattleShipsClient {
     	Connection con = new Connection();
     	
     	StartButtonListener sbListener = new StartButtonListener(gui, con);
+    	//sbListener.setShipsNum(3);
     	gui.setStartButtonListener(sbListener);
     	
     	SwingUtilities.invokeLater(gui);

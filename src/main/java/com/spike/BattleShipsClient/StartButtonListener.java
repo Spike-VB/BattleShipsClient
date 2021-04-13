@@ -8,7 +8,7 @@ import com.spike.BattleShipsLib.*;
 public class StartButtonListener implements ActionListener {
 	
 	private int FIELD_SIZE;
-	private int SHIPS_NUM = 3; 
+	private int SHIPS_NUM = 10; 
 	private Gui gui;
 	private Connection con;
 	private ArrayList<ShipButton> shipButtons = new ArrayList<ShipButton>();
