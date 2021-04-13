@@ -36,7 +36,7 @@ public class FireResponseReader extends SwingWorker<FireResponse, Void> {
 					gui.unblockShipButtons();
 					b.setFireIcon();
 					if(h.isKilled()) {
-						gui.displayKilledShip(b.getPosition());
+						gui.dispKilledShip(b.getPosition());
 					}
 				}
 				else {

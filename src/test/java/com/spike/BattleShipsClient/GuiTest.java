@@ -29,6 +29,7 @@ public class GuiTest extends TestCase {
     	f = f.thenReturn(new HitResponse(false, false));
     	
     	StartButtonListener sbListener = new StartButtonListener(gui, con);
+    	sbListener.setShipsNum(3);
     	gui.setStartButtonListener(sbListener);
     	
     	gui.buildGui();
@@ -49,12 +50,7 @@ public class GuiTest extends TestCase {
     	
     	shipButtons.get(shipButtons.size() - 1).doClick();
     	
-    	try {
-    		Thread.sleep(500);
-    	}
-    	catch(InterruptedException ex) {
-    		ex.printStackTrace();
-    	}  
+    	threadSleep(500);
     	
     	shipButtons.get(shipButtons.size() - 3).doClick();
     	    	
@@ -64,20 +60,60 @@ public class GuiTest extends TestCase {
     				shipButtons.get(shipButtons.size() - 3).getIcon() instanceof EmptyIcon) {
     			break;
     		}
-	    	try {
-	    		Thread.sleep(100);
-	    	}
-	    	catch(InterruptedException ex) {
-	    		ex.printStackTrace();
-	    	}
+    		
+	    	threadSleep(100);
 	    	testTime++;
+	    	
 	    	if(testTime > 50) {
 	    		fail();
 	    	}
     	}
     	
-    	try {
-    		Thread.sleep(1000);
+    	threadSleep(1000);
+	}
+	
+	public void testDispKilledShipHor() {
+		Gui gui = new Gui(10);
+		
+    	con = Mockito.mock(Connection.class);
+    	MockitoAnnotations.initMocks(this);
+    	
+    	OngoingStubbing<FireResponse> f = Mockito.when(con.getFireResponse());
+    	for(int i = 0; i < 10; i++) {
+    		f = f.thenReturn(new HitResponse(true, false));
+    		f = f.thenReturn(new HitResponse(true, true));
+    	}
+    	
+    	StartButtonListener sbListener = new StartButtonListener(gui, con);
+    	sbListener.setShipsNum(1);
+    	gui.setStartButtonListener(sbListener);
+    	
+    	gui.buildGui();
+    	con.connect();
+    	
+    	ArrayList<ShipButton> shipButtons = gui.getShipButtons();
+    	ShipButton sButton = shipButtons.get(0);
+    	sButton.doClick();
+    	
+    	gui.getStartButton().doClick();
+    	
+    	for(int i = 0; i < 3; i++) {
+	    	for(int j = 0; j < 3; j++) {
+	    		for(int k = 0; k < 2; k++) {
+		    		sButton = shipButtons.get((int) (i * (gui.getFieldSize() - 1) / 2) * gui.getFieldSize() + 
+		    				j * ((gui.getFieldSize() - 1) / 3 + 1) + k);
+		    		sButton.doClick();
+		    		threadSleep(100);
+	    		}
+	    	}
+    	}
+    	
+    	threadSleep(10000);
+	}
+	
+	private void threadSleep(int ms) {
+		try {
+    		Thread.sleep(ms);
     	}
     	catch(InterruptedException ex) {
     		ex.printStackTrace();

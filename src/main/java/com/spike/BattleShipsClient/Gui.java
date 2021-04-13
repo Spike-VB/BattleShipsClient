@@ -114,7 +114,7 @@ public class Gui implements Runnable {
     	frame.setVisible(true);
     }
 	
-	public void displayKilledShip(int[] pos) {
+	public void dispKilledShip(int[] pos) {
 		ArrayList<Ship> ships = new ArrayList<Ship>();
 		Ship tempShip = new Ship();
 		Ship killedShip = new Ship();
@@ -172,6 +172,70 @@ public class Gui implements Runnable {
 		for(int[] p : killedShip.getShip()) {
 			shipButtons.get(p[0] * FIELD_SIZE + p[1]).setKilledIcon();
 		}
+		
+		dispKillEmptyCells(killedShip);
+	}
+	
+	private void dispKillEmptyCells0(Ship ship) {
+		ShipButton b;
+		
+		if(ship.getShip().get(0)[0] == ship.getShip().get(1)[0]) {
+			
+			if(ship.getShip().get(0)[0] > 0) {
+				for(int shipPos[] : ship.getShip()) {
+					b = shipButtons.get((shipPos[0] - 1) * FIELD_SIZE + shipPos[1]);
+					setButtonEmptyIcon(b);
+				}
+				
+				if(ship.getShip().get(0)[1] > 0) {
+					b = shipButtons.get((ship.getShip().get(0)[0] - 1) * FIELD_SIZE + ship.getShip().get(0)[1] - 1);
+					setButtonEmptyIcon(b);
+				}
+				
+				if(ship.getShip().get(ship.getShip().size() - 1)[1] < FIELD_SIZE - 1) {
+					b = shipButtons.get((ship.getShip().get(0)[0] - 1) * FIELD_SIZE + ship.getShip().get(ship.getShip().size() - 1)[1] + 1);
+					setButtonEmptyIcon(b);
+				}
+			}
+				
+			if(ship.getShip().get(0)[0] < FIELD_SIZE - 1) {
+				for(int shipPos[] : ship.getShip()) {
+					b = shipButtons.get((shipPos[0] + 1) * FIELD_SIZE + shipPos[1]);
+					setButtonEmptyIcon(b);
+				}
+				
+				if(ship.getShip().get(0)[1] > 0) {
+					b = shipButtons.get((ship.getShip().get(0)[0] + 1) * FIELD_SIZE + ship.getShip().get(0)[1] - 1);
+					setButtonEmptyIcon(b);
+				}
+				
+				if(ship.getShip().get(ship.getShip().size() - 1)[1] < FIELD_SIZE - 1) {
+					b = shipButtons.get((ship.getShip().get(0)[0] + 1) * FIELD_SIZE + ship.getShip().get(ship.getShip().size() - 1)[1] + 1);
+					setButtonEmptyIcon(b);
+				}
+			}
+			
+			if(ship.getShip().get(0)[1] > 0) {
+				b = shipButtons.get((ship.getShip().get(0)[0]) * FIELD_SIZE + ship.getShip().get(0)[1] - 1);
+				setButtonEmptyIcon(b);
+			}
+			
+			if(ship.getShip().get(ship.getShip().size() - 1)[1] < FIELD_SIZE - 1) {
+				b = shipButtons.get((ship.getShip().get(0)[0]) * FIELD_SIZE + 
+						ship.getShip().get(ship.getShip().size() - 1)[1] + 1);
+				setButtonEmptyIcon(b);
+			}
+		}
+	}
+	
+	private void dispKillEmptyCells(Ship ship) {
+		ShipButton b;
+	}
+	
+	private void setButtonEmptyIcon(ShipButton b) {
+		b.setEmptyIcon();
+		b.setBlock(true);
+		b.setEnabled(false);
 	}
 	
 	private void fillShipsPanel() {

@@ -8,7 +8,7 @@ import com.spike.BattleShipsLib.*;
 public class StartButtonListener implements ActionListener {
 	
 	private int FIELD_SIZE;
-	private final int SHIPS_NUM = 3; 
+	private int SHIPS_NUM = 3; 
 	private Gui gui;
 	private Connection con;
 	private ArrayList<ShipButton> shipButtons = new ArrayList<ShipButton>();
@@ -18,6 +18,14 @@ public class StartButtonListener implements ActionListener {
 		con = c;
 		shipButtons = g.getShipButtons();
 		FIELD_SIZE = g.getFieldSize();
+	}
+	
+	public void setShipsNum(int num) {
+		SHIPS_NUM = num;
+	}
+	
+	public int getShipsNum() {
+		return SHIPS_NUM;
 	}
 	
 	public void actionPerformed(ActionEvent ev) {
