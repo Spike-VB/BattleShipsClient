@@ -30,14 +30,19 @@ public class FireResponseReader extends SwingWorker<FireResponse, Void> {
 
 			if(f instanceof HitResponse) {
 				HitResponse h = (HitResponse) f;
-				gui.updateFirsShot();
+				gui.updateFirstShot();
 				
 				if(h.isHit()) {
 					gui.unblockShipButtons();
 					b.setFireIcon();
+					if(h.isKilled()) {
+						gui.displayKilledShip(b.getPosition());
+					}
 				}
 				else {
 					b.setEmptyIcon();
+					FireResponseReader frr = new FireResponseReader(gui, con, b);
+					frr.execute();
 				}
 			}
 			else {
@@ -46,7 +51,7 @@ public class FireResponseReader extends SwingWorker<FireResponse, Void> {
 				
 				if(w.isHit() || gui.getFirsShot()) {
 					if(!w.isHit()) {
-						gui.updateFirsShot();
+						gui.updateFirstShot();
 					}
 					FireResponseReader frr = new FireResponseReader(gui, con, b);
 					frr.execute();

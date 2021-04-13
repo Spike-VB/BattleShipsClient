@@ -9,12 +9,6 @@ public class ShipButton extends JButton {
 	private int[] position = new int[2];
 	private boolean block = false;
 	
-	private SeaIcon seI = new SeaIcon();
-	private EmptyIcon emI = new EmptyIcon();
-	private ShipIcon shI = new ShipIcon();
-	private FireIcon fiI = new FireIcon();
-	private WaitingIcon wI = new WaitingIcon();
-	
 	public boolean isShip() {
 		return ship;
 	}
@@ -41,23 +35,27 @@ public class ShipButton extends JButton {
 	}
 	
 	public void setSeaIcon() {
-		this.setIcon(seI);
+		this.setIcon(new SeaIcon());
 	}
 	
 	public void setShipIcon() {
-		this.setIcon(shI);
+		this.setIcon(new ShipIcon());
 	}
 	
 	public void setFireIcon() {
-		this.setIcon(fiI);
+		this.setIcon(new FireIcon());
 	}
 	
 	public void setEmptyIcon() {
-		this.setIcon(emI);
+		this.setIcon(new EmptyIcon());
 	}
 	
 	public void setWaitingIcon() {
-		this.setIcon(wI);
+		this.setIcon(new WaitingIcon());
+	}
+	
+	public void setKilledIcon() {
+		this.setIcon(new KilledIcon());
 	}
 	
 }

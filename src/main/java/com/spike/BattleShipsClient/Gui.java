@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
+import com.spike.BattleShipsLib.Ship;
+
 public class Gui implements Runnable {
 	
 	private int FIELD_SIZE;
@@ -29,7 +31,7 @@ public class Gui implements Runnable {
 		return firstShot;
 	}
 	
-	public void updateFirsShot() {
+	public void updateFirstShot() {
 		if(firstShot) {
 			firstShot = false;
 		}
@@ -111,6 +113,66 @@ public class Gui implements Runnable {
     	
     	frame.setVisible(true);
     }
+	
+	public void displayKilledShip(int[] pos) {
+		ArrayList<Ship> ships = new ArrayList<Ship>();
+		Ship tempShip = new Ship();
+		Ship killedShip = new Ship();
+		
+		for(int j = 0; j < FIELD_SIZE; j++) {
+			if(shipButtons.get(pos[0] * FIELD_SIZE + j).getIcon() instanceof FireIcon) {
+				tempShip.buildShip(pos[0], j);
+			}
+			else {
+				if(tempShip.getShip().size() > 0) {
+					ships.add(tempShip);
+					tempShip = new Ship();
+				}
+			}
+		}
+		
+		if(!ships.contains(tempShip)) {
+			ships.add(tempShip);
+		}
+		
+		for(Ship s : ships) {
+			if(s.isHit(pos)) {
+				killedShip = s;
+				break;
+			}
+		}
+		
+		if(killedShip.getShip().size() == 1) {
+			ships = new ArrayList<Ship>();
+			tempShip = new Ship();
+			for(int i = 0; i < FIELD_SIZE; i++) {
+				if(shipButtons.get(pos[1] + FIELD_SIZE * i).getIcon() instanceof FireIcon) {
+					tempShip.buildShip(i, pos[1]);
+				}
+				else {
+					if(tempShip.getShip().size() > 0) {
+						ships.add(tempShip);
+						tempShip = new Ship();
+					}
+				}
+			}
+			
+			if(!ships.contains(tempShip)) {
+				ships.add(tempShip);
+			}
+		}
+		
+		for(Ship s : ships) {
+			if(s.isHit(pos)) {
+				killedShip = s;
+				break;
+			}
+		}
+		
+		for(int[] p : killedShip.getShip()) {
+			shipButtons.get(p[0] * FIELD_SIZE + p[1]).setKilledIcon();
+		}
+	}
 	
 	private void fillShipsPanel() {
 		
