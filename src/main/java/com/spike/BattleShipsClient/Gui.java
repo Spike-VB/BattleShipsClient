@@ -176,7 +176,7 @@ public class Gui implements Runnable {
 		dispKillEmptyCells(killedShip);
 	}
 	
-	private void dispKillEmptyCells0(Ship ship) {
+	private void dispKillEmptyCellsHor(Ship ship) {
 		ShipButton b;
 		
 		if(ship.getShip().get(0)[0] == ship.getShip().get(1)[0]) {
@@ -230,6 +230,26 @@ public class Gui implements Runnable {
 	
 	private void dispKillEmptyCells(Ship ship) {
 		ShipButton b;
+		int top;
+		int bottom;
+		int left;
+		int right;
+		
+		for(int[] shipPos : ship.getShip()) {
+			top = shipPos[0] == 0 ? 0 : -1;
+			bottom = shipPos[0] == FIELD_SIZE - 1 ? 1 : 2;
+			left = shipPos[1] == 0 ? 0 : -1;
+			right = shipPos[1] == FIELD_SIZE - 1 ? 1 : 2;
+
+			for(int i = top; i < bottom; i++) {
+				for(int j = left; j < right; j++) {
+					b = shipButtons.get((shipPos[0] + i) * FIELD_SIZE + shipPos[1] + j);
+					if(b.getIcon() instanceof SeaIcon) {
+						setButtonEmptyIcon(b);
+					}
+				}
+			}
+		}
 	}
 	
 	private void setButtonEmptyIcon(ShipButton b) {

@@ -69,7 +69,7 @@ public class GuiTest extends TestCase {
 	    	}
     	}
     	
-    	threadSleep(1000);
+    	threadSleep(2000);
 	}
 	
 	public void testDispKilledShipHor() {
@@ -107,8 +107,47 @@ public class GuiTest extends TestCase {
 	    		}
 	    	}
     	}
+ 
+    	threadSleep(2000);
+	}
+	
+	public void testDispKilledShipVert() {
+		Gui gui = new Gui(10);
+		
+    	con = Mockito.mock(Connection.class);
+    	MockitoAnnotations.initMocks(this);
     	
-    	threadSleep(10000);
+    	OngoingStubbing<FireResponse> f = Mockito.when(con.getFireResponse());
+    	for(int i = 0; i < 10; i++) {
+    		f = f.thenReturn(new HitResponse(true, false));
+    		f = f.thenReturn(new HitResponse(true, true));
+    	}
+    	
+    	StartButtonListener sbListener = new StartButtonListener(gui, con);
+    	sbListener.setShipsNum(1);
+    	gui.setStartButtonListener(sbListener);
+    	
+    	gui.buildGui();
+    	con.connect();
+    	
+    	ArrayList<ShipButton> shipButtons = gui.getShipButtons();
+    	ShipButton sButton = shipButtons.get(0);
+    	sButton.doClick();
+    	
+    	gui.getStartButton().doClick();
+    	
+    	for(int i = 0; i < 3; i++) {
+	    	for(int j = 0; j < 3; j++) {
+	    		for(int k = 0; k < 2; k++) {
+	    			sButton = shipButtons.get(((int) (i * ((gui.getFieldSize() - 1) / 3 + 1)) + k) * gui.getFieldSize() + 
+	    					j * (gui.getFieldSize() - 1) / 2);
+		    		sButton.doClick();
+		    		threadSleep(100);
+	    		}
+	    	}
+    	}
+ 
+    	threadSleep(2000);
 	}
 	
 	private void threadSleep(int ms) {
