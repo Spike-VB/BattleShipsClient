@@ -30,6 +30,9 @@ public class ShipsFactory {
 			for(int j = 0; j < extMatrix[i].length - 1; j++) {
 				
 				if(extMatrix[i][j] == 1) {
+					if(shipsBuilded >= ships.length) {
+						return new Ship[0];
+					}
 					extMatrix[i][j] = 2;
 					Ship s = new Ship();
 					ships[shipsBuilded] = s;
@@ -52,7 +55,6 @@ public class ShipsFactory {
 							k++;
 						}
 					}
-					
 				}
 			}
 		}

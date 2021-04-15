@@ -193,22 +193,18 @@ public class Gui implements Runnable {
 				for(int j = left; j < right; j++) {
 					b = shipButtons.get((shipPos[0] + i) * FIELD_SIZE + shipPos[1] + j);
 					if(b.getIcon() instanceof SeaIcon) {
-						setButtonEmptyIcon(b);
+						b.setEmptyIcon();
+						b.setBlock(true);
+						b.setEnabled(false);
 					}
 				}
 			}
 		}
 	}
 	
-	private void setButtonEmptyIcon(ShipButton b) {
-		b.setEmptyIcon();
-		b.setBlock(true);
-		b.setEnabled(false);
-	}
-	
 	private void fillShipsPanel() {
 		
-		ShipButtonListener sbL = new ShipButtonListener();
+		ShipButtonListener sbL = new ShipButtonListener(this);
 		
 		for(int i = 0; i < FIELD_SIZE; i++) {
 			for(int j = 0; j < FIELD_SIZE; j++) {
