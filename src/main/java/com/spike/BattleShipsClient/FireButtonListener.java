@@ -1,10 +1,6 @@
 package com.spike.BattleShipsClient;
 
 import java.awt.event.*;
-import java.util.concurrent.ExecutionException;
-import javax.swing.SwingWorker;
-
-import com.spike.BattleShipsLib.*;
 
 public class FireButtonListener implements ActionListener{
 	
@@ -27,51 +23,6 @@ public class FireButtonListener implements ActionListener{
 		
 		FireResponseReader frr = new FireResponseReader(gui, con, b);
 		frr.execute();
-		
-		/*
-		
-		SwingWorker<FireResponse, Void> worker = new SwingWorker<FireResponse, Void>() {
-
-			@Override
-			public FireResponse doInBackground() {
-				return con.getFireResponse();
-			}
-			
-			public void done() {
-					try {
-					FireResponse f = get();
-
-					if(f instanceof HitResponse) {
-						HitResponse h = (HitResponse) f;
-						
-						if(h.isHit()) {
-							gui.unblockShipButtons();
-							b.setFireIcon();
-						}
-						else {
-							b.setEmptyIcon();
-						}
-					}
-					else {
-						WaitingResponse w = (WaitingResponse) f;
-						gui.updateFireArray(w.getPosition());
-						
-						if(!w.isHit()) {
-							gui.unblockShipButtons();
-						}
-					}
-					
-					gui.repaint();
-					
-				} catch (InterruptedException | ExecutionException e) {
-					e.printStackTrace();
-				}
-			}
-		};
-		
-		worker.execute();
-		*/
-
 	}
 
 }
