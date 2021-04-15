@@ -38,6 +38,10 @@ public class FireResponseReader extends SwingWorker<FireResponse, Void> {
 					if(h.isKilled()) {
 						gui.dispKilledShip(b.getPosition());
 					}
+					
+					if(f instanceof WinResponse) {
+						gui.getStartButton().setText("You are WIN");
+					}
 				}
 				else {
 					b.setEmptyIcon();
@@ -55,6 +59,10 @@ public class FireResponseReader extends SwingWorker<FireResponse, Void> {
 					}
 					FireResponseReader frr = new FireResponseReader(gui, con, b);
 					frr.execute();
+					
+					if(w instanceof LoseResponse) {
+						gui.getStartButton().setText("You are LOSE");
+					}
 				}
 				else {
 					gui.unblockShipButtons();
